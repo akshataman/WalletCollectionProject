@@ -29,7 +29,8 @@ public class MyWallet {
 		System.out.println("5. Deposit amount");
 		System.out.println("6. Withdraw amount");
 		System.out.println("7. Transfer to other account");
-		System.out.println("8. Exit");
+		System.out.println("8. Calculate GST");
+		System.out.println("9. Exit");
 		System.out.println("Enter your choice");
 		choice=br.readLine();
 		switch(choice) {
@@ -128,7 +129,7 @@ public class MyWallet {
 		String s_mb=br.readLine();
 		mb=Long.parseLong(s_mb);
 		ob=service.findAccount(mb);
-		System.out.println("Enter Account number to be updated: ");
+		System.out.println("Enter Account number: ");
 		while(true) {
 			String s_id=br.readLine();
 			boolean ch1=Validator.validatedata(s_id, Validator.aidpattern);
@@ -146,7 +147,7 @@ public class MyWallet {
 		}	// End of account number while
 	
 		// Accepting and validating input for account holder
-		System.out.println("Enter Account Holder Name to be updated:");
+		System.out.println("Enter Account Holder Name:");
 		while(true) {
 			ah=br.readLine();
 			boolean ch1=Validator.validatedata(ah, Validator.namepattern);
@@ -159,7 +160,7 @@ public class MyWallet {
 		}
 		
 		// Accepting and validating input for balance
-		System.out.println("Enter Initial Balance to be updated: ");
+		System.out.println("Enter Initial Balance: ");
 		while(true) {
 			String s_bal=br.readLine();
 			boolean ch1=Validator.validatedata(s_bal, Validator.balancepattern);
@@ -239,9 +240,17 @@ case "7":	System.out.println("*****************Transfer********************");
 			System.out.println("Money Transfer Failed !");
 		}
 		break;
+		
 
+case "8":	System.out.println("Enter Mobile number ");
+			s_mb=br.readLine();
+			mb=Long.parseLong(s_mb);
+			ob=service.findAccount(mb);
+			double gst=service.calculateTax(5, ob.getBalance());
+			System.out.println("GST for the Account is: "+gst);
+			break;
 
-case "8":	System.out.println("Exiting Program");
+case "9":	System.out.println("Exiting Program");
 		System.exit(0);
 		break;
 default :	System.out.println("Invalid choice");
